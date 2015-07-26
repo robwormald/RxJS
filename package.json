@@ -13,6 +13,7 @@
     "build_all": "npm run build_es6 && npm run build_amd && npm run build_cjs && npm run build_global",
     "perf": "protractor protractor.conf.js",
     "build_perf": "npm run build_es6 && npm run build_cjs && npm run perf",
+    "prepublish": "npm run build_all",
     "build_docs": "npm run build_all && node docs/index"
   },
   "repository": {
@@ -42,8 +43,12 @@
     "babelify": "^6.1.2",
     "benchmark": "^1.0.0",
     "benchpress": "^2.0.0-alpha.25",
+<<<<<<< HEAD
     "dgeni": "^0.4.1",
     "dgeni-packages": "^0.10.18",
+=======
+    "browserify": "^11.0.0",
+>>>>>>> 730f5ae3f070b40cd69e21b60271f2d8a9f5c8c1
     "glob": "^5.0.10",
     "gulp": "^3.9.0",
     "http-server": "^0.8.0",
@@ -54,5 +59,9 @@
     "protractor": "^1.7.0",
     "rx": "^2.4.3",
     "typescript": "^1.5.0-beta"
+  },
+  "format": "es6",
+  "directories": {
+    "lib": "src"
   }
 }

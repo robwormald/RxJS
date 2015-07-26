@@ -1,2 +1,3 @@
-node_modules
-docs/bower_components
+node_modules/
+dist/
+docs/bower_components/

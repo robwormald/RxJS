@@ -1,26 +1,4 @@
 {
-  "name": "rxjs-docs",
-  "main": "index.js",
-  "version": "0.0.0-prealpha.1",
-  "homepage": "http://github.com/reactivex/rxjs",
-  "authors": [
-    "Rob Wormald <robwormald@gmail.com>"
-  ],
-  "description": "Documention App for RxJS",
-  "moduleType": [
-    "globals"
-  ],
-  "keywords": [
-    "RxJS"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "devDependencies": {
     "angular": "~1.4.3",
     "angular-material": "~0.10.0"

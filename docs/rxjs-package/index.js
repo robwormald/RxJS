@@ -25,12 +25,19 @@ rxJSDocPackage.config(function(readFilesProcessor, jsdocFileReader, readTypeScri
 }).config(function(writeFilesProcessor) {
   writeFilesProcessor.outputFolder  = 'dist/docs';
 })
+.factory(require('./readers/ngdoc'))
+
+// Register the processors
+.processor(require('./processors/generateNavigationDoc'))
+.processor(require('./processors/extractTitleFromGuides'))
+.processor(require('./processors/createOverviewDump'))
+
 // Configure links
 .config(function(getLinkInfo) {
   getLinkInfo.useFirstAmbiguousLink = true;
 })
-.config(function(templateFinder, templateEngine) {
-
+.config(function(templateFinder, templateEngine, checkAnchorLinksProcessor) {
+  console.log(checkAnchorLinksProcessor.base = '')
   // Nunjucks and Angular conflict in their template bindings so change Nunjucks
   templateEngine.config.tags = {
     variableStart: '{$',
@@ -85,7 +92,7 @@ var dgeni = new Dgeni([rxJSDocPackage]);
 
 dgeni.generate()
     .then(function(results){
-        console.log(results)
+        //console.log(results)
     })
     .catch(function(err){
         console.log(err)

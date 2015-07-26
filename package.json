@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:ReactiveX/RxJS.git"
+    "url": "https://github.com/ReactiveX/RxJS.git"
   },
   "keywords": [
     "Rx",
@@ -43,13 +43,11 @@
     "babelify": "^6.1.2",
     "benchmark": "^1.0.0",
     "benchpress": "^2.0.0-alpha.25",
-<<<<<<< HEAD
+    "browserify": "^11.0.0",
+    "canonical-path": "0.0.2",
     "dgeni": "^0.4.1",
     "dgeni-packages": "^0.10.18",
-=======
-    "browserify": "^11.0.0",
->>>>>>> 730f5ae3f070b40cd69e21b60271f2d8a9f5c8c1
-    "glob": "^5.0.10",
+    "glob": "^5.0.14",
     "gulp": "^3.9.0",
     "http-server": "^0.8.0",
     "jasmine": "^2.3.1",
@@ -58,7 +56,7 @@
     "platform": "^1.3.0",
     "protractor": "^1.7.0",
     "rx": "^2.4.3",
-    "typescript": "^1.5.0-beta"
+    "typescript": "^1.5.3"
   },
   "format": "es6",
   "directories": {

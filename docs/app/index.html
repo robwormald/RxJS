@@ -1,0 +1,36 @@
+<html>
+  
+  <head>
+    <title>RxJS Documentation</title>
+    <link rel="stylesheet" href="lib/angular-material/angular-material.css">
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/angular-aria/angular-aria.js"></script>
+    <script src="lib/angular-material/angular-material.js"></script>
+    <script src="lib/ui-router/release/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+  </head>
+  
+  <body ng-app="rx-docs" layout="row" ng-controller="AppController">
+    <md-content flex>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>RxJS</span>
+          <md-button>
+            <a ui-sref="docs" ui-sref-active="active">API</a>
+          </md-button>
+          <md-button>
+            <a href="http://github.com/reactivex/rxjs" target="_blank">Guides</a>
+          </md-button>
+          <!-- fill up the space between left and right area -->
+          <span flex></span>
+          <md-button>
+            <a href="http://github.com/reactivex/rxjs" target="_blank">Github</a>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <div ui-view></div>
+    </md-content>
+  </body>
+
+</html>

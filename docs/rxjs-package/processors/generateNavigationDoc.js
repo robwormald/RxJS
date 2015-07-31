@@ -6,6 +6,7 @@ module.exports = function generateNavigationDoc() {
     $runAfter: ['docs-processed'],
     $runBefore: ['rendering-docs'],
     $process: function(docs) {
+      console.log(docs)
       var modulesDoc = {
         value: { sections: [] },
         moduleName: 'navigation-modules',

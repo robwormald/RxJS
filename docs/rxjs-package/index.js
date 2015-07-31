@@ -19,7 +19,7 @@ rxJSDocPackage.config(function(readFilesProcessor, jsdocFileReader, readTypeScri
 
   readTypeScriptModules.sourceFiles = [
     //'*/*.@(js|es6|ts)',
-    '**/*.@(js|es6|ts)'
+    '*.ts'
   ];
   readTypeScriptModules.basePath = path.resolve(readFilesProcessor.basePath, 'src');
 }).config(function(writeFilesProcessor) {
@@ -37,7 +37,6 @@ rxJSDocPackage.config(function(readFilesProcessor, jsdocFileReader, readTypeScri
   getLinkInfo.useFirstAmbiguousLink = true;
 })
 .config(function(templateFinder, templateEngine, checkAnchorLinksProcessor) {
-  console.log(checkAnchorLinksProcessor.base = '')
   // Nunjucks and Angular conflict in their template bindings so change Nunjucks
   templateEngine.config.tags = {
     variableStart: '{$',

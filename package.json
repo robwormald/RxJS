@@ -56,13 +56,8 @@
     "platform": "^1.3.0",
     "promise": "^7.0.3",
     "protractor": "^1.7.0",
-<<<<<<< HEAD
     "rx": "^2.4.3",
     "typescript": "^1.5.3"
-=======
-    "rx": "^2.5.3",
-    "typescript": "^1.5.0-beta"
->>>>>>> 1c412f5671788497c19ce8f856ade5606c5f9247
   },
   "format": "es6",
   "directories": {

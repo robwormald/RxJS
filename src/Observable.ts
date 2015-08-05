@@ -37,7 +37,11 @@ export default class Observable<T> {
     let subscriber: Subscriber<T>;
 
     if (observerOrNext && typeof observerOrNext === "object") {
-      subscriber = new Subscriber(<Observer<T>> observerOrNext);
+      if(observerOrNext instanceof Subscriber) {
+        subscriber = (<Subscriber<T>> observerOrNext);
+      } else {
+        subscriber = new Subscriber(<Observer<T>> observerOrNext);
+      }
     } else {
       const next = <((x?) => void)> observerOrNext;
       subscriber = Subscriber.create(next, error, complete);
@@ -64,6 +68,7 @@ export default class Observable<T> {
 
   // TODO: convert this to an `abstract` class in TypeScript 1.6.
 
+  static defer: <T>(observableFactory: () => Observable<T>) => Observable<T>;
   static from: <T>(iterable: any, project?: (x?: any, i?: number) => T, thisArg?: any, scheduler?: Scheduler) => Observable<T>;
   static fromArray: <T>(array: T[], scheduler?: Scheduler) => Observable<T>;
   // static fromEvent: <T, R>(element: any, eventName: string, selector: (event: R) => T) => Observable<T>;
@@ -112,15 +117,16 @@ export default class Observable<T> {
   zip: <R>(...observables: (Observable<any> | ((...values: Array<any>) => R)) []) => Observable<R>;
   zipAll: <R>(project?: (...values: Array<any>) => R) => Observable<R>;
 
-  map: <T, R>(project: (x: T, ix?: number) => R) => Observable<R>;
+  map: <T, R>(project: (x: T, ix?: number) => R, thisArg?: any) => Observable<R>;
   mapTo: <R>(value: R) => Observable<R>;
   toArray: () => Observable<T[]>;
   scan: <R>(project: (acc: R, x: T) => R, acc?: R) => Observable<R>;
   reduce: <R>(project: (acc: R, x: T) => R, acc?: R) => Observable<R>;
 
-  filter: (predicate: (x: T) => boolean) => Observable<T>;
+  filter: (predicate: (x: T) => boolean, ix?: number, thisArg?: any) => Observable<T>;
   skip: (count: number) => Observable<T>;
   take: (count: number) => Observable<T>;
+  takeUntil: (observable: Observable<any>) => Observable<T>;
   partition: (predicate: (x: T) => boolean) => Observable<T>[];
 
   observeOn: (scheduler: Scheduler, delay?: number) => Observable<T>;
@@ -128,4 +134,6 @@ export default class Observable<T> {
 
   publish: () => ConnectableObservable<T>;
   multicast: (subjectFactory: () => Subject<T>) => ConnectableObservable<T>;
+  
+  catch: (selector: (err: any, source: Observable<T>, caught: Observable<any>) => Observable<any>) => Observable<T>;
 }

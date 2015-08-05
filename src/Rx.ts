@@ -3,10 +3,12 @@ import Scheduler from './Scheduler';
 import Observable from './Observable';
 import Subscriber from './Subscriber';
 import Subscription from './Subscription';
+import ReplaySubject from './subjects/ReplaySubject';
 import BehaviorSubject from './subjects/BehaviorSubject';
 import ConnectableObservable from './observables/ConnectableObservable';
 
 import ArrayObservable from './observables/ArrayObservable';
+import DeferObservable from './observables/DeferObservable';
 import EmptyObservable from './observables/EmptyObservable';
 import ErrorObservable from './observables/ErrorObservable';
 import InfiniteObservable from './observables/InfiniteObservable';
@@ -17,6 +19,7 @@ import RangeObservable from './observables/RangeObservable';
 import ScalarObservable from './observables/ScalarObservable';
 import TimerObservable from './observables/TimerObservable';
 
+Observable.defer = DeferObservable.create;
 Observable.from = IteratorObservable.create;
 Observable.fromArray = ArrayObservable.create;
 Observable.fromPromise = PromiseObservable.create;
@@ -77,11 +80,13 @@ observableProto.scan = scan;
 observableProto.reduce = reduce;
 
 import filter from './operators/filter';
-import take from './operators/take'
-import skip from './operators/skip'
+import take from './operators/take';
+import skip from './operators/skip';
+import takeUntil from './operators/takeUntil';
 
 observableProto.take = take;
 observableProto.skip = skip;
+observableProto.takeUntil = takeUntil;
 observableProto.filter = filter;
 
 import combineLatest from './operators/combineLatest';
@@ -110,9 +115,13 @@ import subscribeOn from './operators/subscribeOn';
 observableProto.observeOn = observeOn;
 observableProto.subscribeOn = subscribeOn;
 
-import partition from './operators/partition'
+import partition from './operators/partition';
 
 observableProto.partition = partition;
+
+import _catch from './operators/catch';
+
+observableProto.catch = _catch;
 
 export default {
     Subject,
@@ -120,6 +129,7 @@ export default {
     Observable,
     Subscriber,
     Subscription,
+    ReplaySubject,
     BehaviorSubject,
     ConnectableObservable
 };

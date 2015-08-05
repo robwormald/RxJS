@@ -4,6 +4,9 @@ import Subscription from './Subscription';
 export default class Scheduler {
   static immediate: Scheduler;
   static nextTick: Scheduler;
+  now(): number {
+    return Date.now();
+  }
   schedule<T>(delay: number, state: any, work: (x?: any) => Subscription<T> | void): Subscription<T> {
     throw new Error("Scheduler.prototype.schedule not implemented.");
   }
@@ -74,7 +77,7 @@ export class Action<T> extends Subscription<T> {
     if (this.isUnsubscribed) {
       throw new Error("How did did we execute a canceled Action?");
     }
-    this.add(this.work(this.state));
+    this.work(this.state);
   }
 
   unsubscribe() {

@@ -1,0 +1,35 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'run', 'build_all' ]
+2 info using npm@2.10.1
+3 info using node@v0.12.4
+4 verbose run-script [ 'prebuild_all', 'build_all', 'postbuild_all' ]
+5 info prebuild_all RxJS-Next@0.0.0-prealpha.1
+6 info build_all RxJS-Next@0.0.0-prealpha.1
+7 verbose unsafe-perm in lifecycle true
+8 info RxJS-Next@0.0.0-prealpha.1 Failed to exec build_all script
+9 verbose stack Error: RxJS-Next@0.0.0-prealpha.1 build_all: `npm run build_es6 && npm run build_amd && npm run build_cjs && npm run build_global`
+9 verbose stack Exit status 1
+9 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:213:16)
+9 verbose stack     at EventEmitter.emit (events.js:110:17)
+9 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+9 verbose stack     at ChildProcess.emit (events.js:110:17)
+9 verbose stack     at maybeClose (child_process.js:1015:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+10 verbose pkgid RxJS-Next@0.0.0-prealpha.1
+11 verbose cwd /Users/robwormald/Dev/Rx/RxJS
+12 error Darwin 15.0.0
+13 error argv "node" "/usr/local/bin/npm" "run" "build_all"
+14 error node v0.12.4
+15 error npm  v2.10.1
+16 error code ELIFECYCLE
+17 error RxJS-Next@0.0.0-prealpha.1 build_all: `npm run build_es6 && npm run build_amd && npm run build_cjs && npm run build_global`
+17 error Exit status 1
+18 error Failed at the RxJS-Next@0.0.0-prealpha.1 build_all script 'npm run build_es6 && npm run build_amd && npm run build_cjs && npm run build_global'.
+18 error This is most likely a problem with the RxJS-Next package,
+18 error not with npm itself.
+18 error Tell the author that this fails on your system:
+18 error     npm run build_es6 && npm run build_amd && npm run build_cjs && npm run build_global
+18 error You can get their info via:
+18 error     npm owner ls RxJS-Next
+18 error There is likely additional logging output above.
+19 verbose exit [ 1, true ]

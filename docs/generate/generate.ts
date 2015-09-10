@@ -1,12 +1,10 @@
 require('es6-shim');
-import ts = require('typescript');
 import fs = require('fs');
 import Rx = require('../../dist/cjs/Rx');
 import path = require('path');
 import util = require('util');
 import markdox = require('markdox');
 import h = require('hyperscript');
-import html = require('html');
 import beautify = require('js-beautify');
 
 import {readDirectory} from './filereader'
@@ -15,14 +13,15 @@ const BASE_DIR = './src'
 
 const normalizePath = (baseDir,filePath) => filePath.replace(path.resolve(baseDir) + '/', '');
 
-
 const readSourceFiles = rootDir => readDirectory(path.resolve(rootDir)).filter(file => path.extname(file) == '.ts') //.map(normalizePath(rootDir))
 
 const parseDocComments = file => {
   return new Rx.Observable(observer => {
+    //load source file for display
+    let sourceCode = fs.readFileSync(file, {encoding: 'utf-8'})
     markdox.parse(file, (err, docs) => {
       if(!err){
-        observer.next({file, docs});
+        observer.next({file, docs, sourceCode});
         observer.complete();
       }
       else{
@@ -48,13 +47,15 @@ const generateReturnString = (returnTag) => {
 }
 
 const generateConstructorDoc = (doc) => {
-  return h('div',{}, [
-    h('pre',{},[`constructor(${generateParamString(getParams(doc))})`])
-  ]);
+  return (
+    <div>
+      <pre>{`constructor(${generateParamString(getParams(doc))})`}</pre>
+    </div>
+  )
 }
 
 const generateMethodDoc = (doc) => {
-  return h('div', {},[
+  return h(`div#${doc.ctx.name}`, {},[
     h('pre',{},`${doc.ctx.name}(${generateParamString(getParams(doc))})${generateReturnString(getReturn(doc))}`),
     h('p', {}, doc.description.full)
    ])
@@ -101,7 +102,7 @@ const generateClassDoc = (docs) => {
   return h('div',{},[
     h('h1',{},className),
     h('div',{},memberDocs.map(memberDoc => generateMemberDoc(memberDoc)))
-  ]).outerHTML
+  ])
 }
 
 
@@ -109,40 +110,29 @@ const generateClassDoc = (docs) => {
 const generateDocView = sourceFile => {
   let isClass = sourceFile.docs.find(doc => doc.isClass);
   if(isClass){
-    sourceFile.generatedDoc = beautify.html(generateClassDoc(sourceFile.docs));
+    sourceFile.generatedDoc = generateClassDoc(sourceFile.docs);
   }
   return sourceFile;
 }
 
 const writeDocToDir = (outputDir) => (doc) => {
 
-  let writePath = path.join(process.cwd(),outputDir,doc.path.replace('.ts','.html'))
+  let writePath = path.join(process.cwd(),outputDir,doc.path + '.html');
   fs.writeFileSync(writePath,doc.generatedDoc);
   return doc;
 }
 
-const normalizeDocPath = (srcPath) => (doc) => {
+const normalizeDocPathFrom = (srcPath) => (doc) => {
   let [root, filePath] = doc.file.split(srcPath);
-  doc.path = filePath.substring(1,filePath.length);
+  doc.file = filePath.substring(1,filePath.length);
+  doc.path = filePath.substring(1,filePath.length - 3);
   return doc;
 }
 
-
-// const allFiles = sourceFiles.reduce((all, fileObj) => {
-//   all.push(fileObj.path.replace('/','') + '/' + fileObj.file);
-//   return all;
-// },[]);
-
-const generateAPIDocs = (inputDir) => {
+export const generateAPIDocs = (inputDir) => {
   return readSourceFiles(inputDir)
   .filter(file => path.extname(file) === '.ts')
   .flatMap(parseDocComments)
-  .map(normalizeDocPath(inputDir))
+  .map(normalizeDocPathFrom(inputDir))
   .map(generateDocView)
 }
-
-generateAPIDocs('src')
-  .do(writeDocToDir('dist/docs'))
-  .subscribe(doc => console.log(doc), (err)=> console.log('err!',err),()=> {
-    console.log('generated docs')
-  })

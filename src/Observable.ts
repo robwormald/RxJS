@@ -56,7 +56,7 @@ export default class Observable<T>  {
    * @description creates a new Observable, with this Observable as the source, and the passed 
    * operator defined as the new observable's operator.
    */
-  lift<T, R>(operator: Operator<T, R>): Observable<T> {
+  lift(operator: Operator<T, R>): Observable<T> {
     const observable = new Observable();
     observable.source = this;
     observable.operator = operator;

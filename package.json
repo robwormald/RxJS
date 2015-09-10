@@ -64,13 +64,7 @@
     "browserify": "^11.0.0",
     "canonical-path": "0.0.2",
     "colors": "^1.1.2",
-<<<<<<< HEAD
     "glob": "^5.0.14",
-=======
-    "dgeni": "^0.4.1",
-    "dgeni-packages": "^0.10.19",
-    "glob": "^5.0.10",
->>>>>>> add dgeni config
     "http-server": "^0.8.0",
     "jasmine": "^2.3.1",
     "jasmine-core": "^2.2.0",

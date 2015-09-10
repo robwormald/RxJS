@@ -47,14 +47,13 @@ const generateReturnString = (returnTag) => {
 }
 
 const generateConstructorDoc = (doc) => {
-  return (
-    <div>
-      <pre>{`constructor(${generateParamString(getParams(doc))})`}</pre>
-    </div>
-  )
+  return h('div',{},[
+    h('pre',{},[`constructor(${generateParamString(getParams(doc))})`])
+  ])
 }
 
 const generateMethodDoc = (doc) => {
+  console.log(doc.ctx)
   return h(`div#${doc.ctx.name}`, {},[
     h('pre',{},`${doc.ctx.name}(${generateParamString(getParams(doc))})${generateReturnString(getReturn(doc))}`),
     h('p', {}, doc.description.full)
@@ -131,7 +130,7 @@ const normalizeDocPathFrom = (srcPath) => (doc) => {
 
 export const generateAPIDocs = (inputDir) => {
   return readSourceFiles(inputDir)
-  .filter(file => path.extname(file) === '.ts')
+  //.filter(file => path.extname(file) === '.ts')
   .flatMap(parseDocComments)
   .map(normalizeDocPathFrom(inputDir))
   .map(generateDocView)

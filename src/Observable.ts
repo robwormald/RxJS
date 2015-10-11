@@ -7,6 +7,24 @@ import { root } from './util/root';
 import { CoreOperators } from './CoreOperators';
 import $$observable from './util/Symbol_observable';
 
+// operators
+import combineLatestStatic from './operators/combineLatest-static';
+import concatStatic from './operators/concat-static';
+import DeferObservable from './observables/DeferObservable';
+import EmptyObservable from './observables/EmptyObservable';
+import ForkJoinObservable from './observables/ForkJoinObservable';
+import FromObservable from './observables/FromObservable';
+import ArrayObservable from './observables/ArrayObservable';
+import FromEventObservable from './observables/FromEventObservable';
+import FromEventPatternObservable from './observables/FromEventPatternObservable';
+import PromiseObservable from './observables/PromiseObservable';
+import IntervalObservable from './observables/IntervalObservable';
+import mergeStatic from './operators/merge-static';
+import InfiniteObservable from './observables/InfiniteObservable';
+import RangeObservable from './observables/RangeObservable';
+import ErrorObservable from './observables/ErrorObservable';
+import TimerObservable from './observables/TimerObservable';
+import zipStatic from './operators/zip-static';
 
 /**
  * A representation of any set of values over any amount of time. This the most basic building block
@@ -35,7 +53,6 @@ export default class Observable<T> implements CoreOperators<T>  {
   // HACK: Since TypeScript inherits static properties too, we have to
   // fight against TypeScript here so Subject can have a different static create signature
   /**
-   * @static
    * @method create
    * @param {Function} subscribe? the subscriber function to be passed to the Observable constructor
    * @returns {Observable} a new cold observable
@@ -131,23 +148,23 @@ export default class Observable<T> implements CoreOperators<T>  {
   }
 
   // static method stubs
-  static combineLatest: <T>(...observables: (Observable<any> | ((...values: Array<any>) => T)) []) => Observable<T>;
-  static concat: (...observables: any[]) => Observable<any>;
-  static defer: <T>(observableFactory: () => Observable<T>) => Observable<T>;
-  static empty: <T>() => Observable<T>;
-  static forkJoin: (...observables: Observable<any>[]) => Observable<any[]>;
-  static from: <T>(iterable: any, scheduler?: Scheduler) => Observable<T>;
-  static fromArray: <T>(array: T[], scheduler?: Scheduler) => Observable<T>;
-  static fromEvent: <T>(element: any, eventName: string, selector: (...args:Array<any>) => T) => Observable<T>;
-  static fromEventPattern: <T>(addHandler: (handler:Function)=>void, removeHandler: (handler:Function) => void, selector?: (...args:Array<any>) => T) => Observable<T>;
-  static fromPromise: <T>(promise: Promise<T>) => Observable<T>;
-  static interval: (interval: number) => Observable<number>;
-  static merge: (...observables:any[]) => Observable<any>;
-  static never: <T>() => Observable<T>;
-  static of: <T>(...values: (T | Scheduler)[]) => Observable<T>;
-  static range: <T>(start: number, end: number, scheduler?: Scheduler) => Observable<number>;
-  static throw: <T>(error: T) => Observable<T>;
-  static timer: (delay: number) => Observable<number>;
-  static zip: <T>(...observables: (Observable<any> | ((...values: Array<any>) => T)) []) => Observable<T>;
+  static combineLatest = combineLatestStatic;
+  static concat = concatStatic;
+  static defer = DeferObservable.create;
+  static empty = EmptyObservable.create;
+  static forkJoin = ForkJoinObservable.create;
+  static from = FromObservable.create;
+  static fromArray = ArrayObservable.create;
+  static fromEvent = FromEventObservable.create;
+  static fromEventPattern = FromEventPatternObservable.create;
+  static fromPromise = PromiseObservable.create;
+  static interval = IntervalObservable.create;
+  static merge = mergeStatic;
+  static never = InfiniteObservable.create;
+  static of = ArrayObservable.of;
+  static range = RangeObservable.create;
+  static throw = ErrorObservable.create;
+  static timer = TimerObservable.create;
+  static zip = zipStatic;
   ignoreElements: () => Observable<T>;
 }

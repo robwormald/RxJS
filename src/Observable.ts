@@ -7,6 +7,24 @@ import { root } from './util/root';
 import { CoreOperators } from './CoreOperators';
 import $$observable from './util/Symbol_observable';
 
+// operators
+import combineLatestStatic from './operators/combineLatest-static';
+import concatStatic from './operators/concat-static';
+import DeferObservable from './observables/DeferObservable';
+import EmptyObservable from './observables/EmptyObservable';
+import ForkJoinObservable from './observables/ForkJoinObservable';
+import FromObservable from './observables/FromObservable';
+import ArrayObservable from './observables/ArrayObservable';
+import FromEventObservable from './observables/FromEventObservable';
+import FromEventPatternObservable from './observables/FromEventPatternObservable';
+import PromiseObservable from './observables/PromiseObservable';
+import IntervalObservable from './observables/IntervalObservable';
+import mergeStatic from './operators/merge-static';
+import InfiniteObservable from './observables/InfiniteObservable';
+import RangeObservable from './observables/RangeObservable';
+import ErrorObservable from './observables/ErrorObservable';
+import TimerObservable from './observables/TimerObservable';
+import zipStatic from './operators/zip-static';
 
 /**
  * A representation of any set of values over any amount of time. This the most basic building block
@@ -35,7 +53,6 @@ export default class Observable<T> implements CoreOperators<T>  {
   // HACK: Since TypeScript inherits static properties too, we have to
   // fight against TypeScript here so Subject can have a different static create signature
   /**
-   * @static
    * @method create
    * @param {Function} subscribe? the subscriber function to be passed to the Observable constructor
    * @returns {Observable} a new cold observable
